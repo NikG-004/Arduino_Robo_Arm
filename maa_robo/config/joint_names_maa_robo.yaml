@@ -1,0 +1,1 @@
+controller_joint_names: ['', 'base_waist', 'waist_l1', 'l1_l2', 'l2_wrist', 'wrist_gbase', 'gbase_g1', 'g1_e1', 'gbase_g2', 'g2_e2', 'gbase_s1', 'gbase_s2', 'gbase_s3', 'gbase_s4', ]
