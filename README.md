@@ -1,1 +1,2 @@
 # Arduino_Robo_Arm
+ In this project till now I have completed the audio aspect of an Arduino and ROS-based Robotic Arm project, where I utilized the MoveIt motion planning framework of ROS to control trajectory of the robotic arm and using google voice controller for voice commands. Currently, I am continuing to explore ways to integrate computer vision to enable control of the robotic arm through hand gestures.
