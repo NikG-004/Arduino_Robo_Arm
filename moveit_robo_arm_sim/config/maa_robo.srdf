@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This does not replace URDF, and is not an extension of URDF.
+    This is a format for representing semantic information about the robot structure.
+    A URDF file must exist for this robot as well, where the joints and the links that are referenced are defined
+-->
+<robot name="maa_robo">
+    <!--GROUPS: Representation of a set of joints and links. This can be useful for specifying DOF to plan for, defining arms, end effectors, etc-->
+    <!--LINKS: When a link is specified, the parent joint of that link (if it exists) is automatically included-->
+    <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->
+    <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
+    <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
+    <group name="arm_group">
+        <joint name="base_waist"/>
+        <joint name="waist_l1"/>
+        <joint name="l1_l2"/>
+        <joint name="l2_wrist"/>
+        <joint name="wrist_gbase"/>
+    </group>
+    <group name="hand">
+        <joint name="gbase_g1"/>
+        <joint name="g1_e1"/>
+        <joint name="gbase_g2"/>
+        <joint name="g2_e2"/>
+        <joint name="gbase_s1"/>
+        <joint name="gbase_s2"/>
+        <joint name="gbase_s3"/>
+        <joint name="gbase_s4"/>
+    </group>
+    <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
+    <group_state name="initial" group="arm_group">
+        <joint name="base_waist" value="0"/>
+        <joint name="l1_l2" value="0"/>
+        <joint name="l2_wrist" value="0"/>
+        <joint name="waist_l1" value="0"/>
+        <joint name="wrist_gbase" value="0"/>
+    </group_state>
+    <group_state name="pick" group="arm_group">
+        <joint name="base_waist" value="0"/>
+        <joint name="l1_l2" value="1.2539"/>
+        <joint name="l2_wrist" value="0"/>
+        <joint name="waist_l1" value="1.1274"/>
+        <joint name="wrist_gbase" value="-0.7692"/>
+    </group_state>
+    <group_state name="place" group="arm_group">
+        <joint name="base_waist" value="0"/>
+        <joint name="l1_l2" value="-1.2539"/>
+        <joint name="l2_wrist" value="0"/>
+        <joint name="waist_l1" value="-1.1907"/>
+        <joint name="wrist_gbase" value="0.8535"/>
+    </group_state>
+    <group_state name="open" group="hand">
+        <joint name="gbase_g1" value="1.2"/>
+    </group_state>
+    <group_state name="close" group="hand">
+        <joint name="gbase_g1" value="0"/>
+    </group_state>
+    <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
+    <disable_collisions link1="base" link2="gbase" reason="Never"/>
+    <disable_collisions link1="base" link2="l1" reason="Never"/>
+    <disable_collisions link1="base" link2="l2" reason="Never"/>
+    <disable_collisions link1="base" link2="s3" reason="Never"/>
+    <disable_collisions link1="base" link2="s4" reason="Never"/>
+    <disable_collisions link1="base" link2="waist" reason="Adjacent"/>
+    <disable_collisions link1="base" link2="wrist" reason="Never"/>
+    <disable_collisions link1="e1" link2="e2" reason="Never"/>
+    <disable_collisions link1="e1" link2="g1" reason="Adjacent"/>
+    <disable_collisions link1="e1" link2="g2" reason="Never"/>
+    <disable_collisions link1="e1" link2="gbase" reason="Never"/>
+    <disable_collisions link1="e1" link2="l1" reason="Never"/>
+    <disable_collisions link1="e1" link2="l2" reason="Never"/>
+    <disable_collisions link1="e1" link2="s1" reason="Default"/>
+    <disable_collisions link1="e1" link2="s2" reason="Never"/>
+    <disable_collisions link1="e1" link2="s3" reason="Default"/>
+    <disable_collisions link1="e1" link2="s4" reason="Never"/>
+    <disable_collisions link1="e1" link2="waist" reason="Never"/>
+    <disable_collisions link1="e1" link2="wrist" reason="Never"/>
+    <disable_collisions link1="e2" link2="g1" reason="Never"/>
+    <disable_collisions link1="e2" link2="g2" reason="Adjacent"/>
+    <disable_collisions link1="e2" link2="gbase" reason="Never"/>
+    <disable_collisions link1="e2" link2="l1" reason="Never"/>
+    <disable_collisions link1="e2" link2="l2" reason="Never"/>
+    <disable_collisions link1="e2" link2="s1" reason="Never"/>
+    <disable_collisions link1="e2" link2="s2" reason="Never"/>
+    <disable_collisions link1="e2" link2="s3" reason="Never"/>
+    <disable_collisions link1="e2" link2="s4" reason="Default"/>
+    <disable_collisions link1="e2" link2="waist" reason="Never"/>
+    <disable_collisions link1="e2" link2="wrist" reason="Never"/>
+    <disable_collisions link1="g1" link2="g2" reason="Default"/>
+    <disable_collisions link1="g1" link2="gbase" reason="Adjacent"/>
+    <disable_collisions link1="g1" link2="l1" reason="Never"/>
+    <disable_collisions link1="g1" link2="l2" reason="Never"/>
+    <disable_collisions link1="g1" link2="s1" reason="Never"/>
+    <disable_collisions link1="g1" link2="s2" reason="Never"/>
+    <disable_collisions link1="g1" link2="s3" reason="Never"/>
+    <disable_collisions link1="g1" link2="s4" reason="Never"/>
+    <disable_collisions link1="g1" link2="waist" reason="Never"/>
+    <disable_collisions link1="g1" link2="wrist" reason="Never"/>
+    <disable_collisions link1="g2" link2="gbase" reason="Adjacent"/>
+    <disable_collisions link1="g2" link2="l1" reason="Never"/>
+    <disable_collisions link1="g2" link2="l2" reason="Never"/>
+    <disable_collisions link1="g2" link2="s1" reason="Never"/>
+    <disable_collisions link1="g2" link2="s2" reason="Never"/>
+    <disable_collisions link1="g2" link2="s3" reason="Never"/>
+    <disable_collisions link1="g2" link2="s4" reason="Never"/>
+    <disable_collisions link1="g2" link2="waist" reason="Never"/>
+    <disable_collisions link1="g2" link2="wrist" reason="Never"/>
+    <disable_collisions link1="gbase" link2="l1" reason="Never"/>
+    <disable_collisions link1="gbase" link2="l2" reason="Never"/>
+    <disable_collisions link1="gbase" link2="s1" reason="Adjacent"/>
+    <disable_collisions link1="gbase" link2="s2" reason="Adjacent"/>
+    <disable_collisions link1="gbase" link2="s3" reason="Adjacent"/>
+    <disable_collisions link1="gbase" link2="s4" reason="Adjacent"/>
+    <disable_collisions link1="gbase" link2="waist" reason="Never"/>
+    <disable_collisions link1="gbase" link2="wrist" reason="Adjacent"/>
+    <disable_collisions link1="l1" link2="l2" reason="Adjacent"/>
+    <disable_collisions link1="l1" link2="s1" reason="Never"/>
+    <disable_collisions link1="l1" link2="s2" reason="Never"/>
+    <disable_collisions link1="l1" link2="s3" reason="Never"/>
+    <disable_collisions link1="l1" link2="s4" reason="Never"/>
+    <disable_collisions link1="l1" link2="waist" reason="Adjacent"/>
+    <disable_collisions link1="l1" link2="wrist" reason="Never"/>
+    <disable_collisions link1="l2" link2="s1" reason="Never"/>
+    <disable_collisions link1="l2" link2="s2" reason="Never"/>
+    <disable_collisions link1="l2" link2="s3" reason="Never"/>
+    <disable_collisions link1="l2" link2="s4" reason="Never"/>
+    <disable_collisions link1="l2" link2="waist" reason="Never"/>
+    <disable_collisions link1="l2" link2="wrist" reason="Adjacent"/>
+    <disable_collisions link1="s1" link2="s2" reason="Never"/>
+    <disable_collisions link1="s1" link2="s3" reason="Never"/>
+    <disable_collisions link1="s1" link2="s4" reason="Never"/>
+    <disable_collisions link1="s1" link2="waist" reason="Never"/>
+    <disable_collisions link1="s1" link2="wrist" reason="Never"/>
+    <disable_collisions link1="s2" link2="s3" reason="Never"/>
+    <disable_collisions link1="s2" link2="s4" reason="Never"/>
+    <disable_collisions link1="s2" link2="waist" reason="Never"/>
+    <disable_collisions link1="s2" link2="wrist" reason="Never"/>
+    <disable_collisions link1="s3" link2="s4" reason="Never"/>
+    <disable_collisions link1="s3" link2="waist" reason="Never"/>
+    <disable_collisions link1="s3" link2="wrist" reason="Never"/>
+    <disable_collisions link1="s4" link2="waist" reason="Never"/>
+    <disable_collisions link1="s4" link2="wrist" reason="Never"/>
+    <disable_collisions link1="waist" link2="wrist" reason="Never"/>
+</robot>
